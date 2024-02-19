@@ -37,28 +37,47 @@ const grandTotalPriceId = document.getElementById('grand-total');
 const grandTotalPriceText = totalPriceId.innerText;
 let grandTotalPriceNumber = parseInt(totalPriceText);
 
-// creat li & p tag
-const li = document.createElement('li');
-const p1 = document.createElement('p');
-const p2 = document.createElement('p');
-const p3 = document.createElement('p');
+// // creat li & p tag
+// const li = document.createElement('li');
+// const p1 = document.createElement('p');
+// const p2 = document.createElement('p');
+// const p3 = document.createElement('p');
 
-// console.log(seatSelectId)
-for (const seat of allSeats) {
+// allSeats.classList.add('bg-[#1DD100')
+for (let index = 0; index < allSeats.length; index++) {
+    const seat = allSeats[index];
+
     seat.addEventListener('click', function (e) {
         if (i <= 4) {
-            seat.classList.add('bg-[#1DD100]');
-            // e.target.classList.add('text-[#1DD100]');
+
+            // disabled add-bg & color
+            seat.setAttribute("disabled", "");
+            seat.style.backgroundColor = '#1DD100';
+            seat.style.color = '#FFF';
+
+            // calculate selected & left seat
             seatLeft -= 1;
             setLeftId.innerText = seatLeft
             seatSelected += 1;
             seatSelectId.innerText = seatSelected
 
-            const targetSeat = e.target.innerText;
+            const targetSeat = seat.innerText;
 
-            // append p1 p2 p3 
+            // creat li & p tag
+            const li = document.createElement('li');
+            const p1 = document.createElement('p');
+            const p2 = document.createElement('p');
+            const p3 = document.createElement('p');
+
+            // set p1 p2 p3 innerText & appened to li
             p1.innerText = targetSeat;
-
+            p2.innerText = 'Economoy';
+            p3.innerText = 550;
+            li.appendChild(p1);
+            li.appendChild(p2);
+            li.appendChild(p3);
+            li.style.display = 'flex';
+            li.style.justifyContent = 'space-between';
 
             const appendContainer = document.getElementById('append-container');
             appendContainer.appendChild(li)
@@ -74,11 +93,11 @@ for (const seat of allSeats) {
 
             // phone number input
             const number = document.getElementById('phone').value;
-            if (seat && number.length > 0){
-                
-            // enable button
-            const nextBtn = document.getElementById('next-btn');
-            nextBtn.classList.remove('btn-disabled');
+            if (number.length > 0) {
+
+                // enable button
+                const nextBtn = document.getElementById('next-btn');
+                nextBtn.classList.remove('btn-disabled');
             }
 
             i++;
@@ -86,7 +105,6 @@ for (const seat of allSeats) {
         else {
             alert('4 seat selected!!!')
         }
-        return seat;
     })
 }
 
@@ -108,12 +126,14 @@ couponBtn.addEventListener('click', function () {
             discount = grandTotalPriceNumber * 0.20;
             grandTotalPriceId.innerText = grandTotalPriceNumber - discount;
         }
+        const fullCouponField = document.getElementById('coupon-fild');
+        fullCouponField.classList.add('hidden');
+        console.log(fullCouponField)
     }
 })
 
-p2.innerText = 'Economoy';
-p3.innerText = 550;
-li.append(p1, p2, p3);
-li.classList.add('flex')
-li.classList.add('justify-between')
+
+// li.append(p1, p2, p3);
+// li.classList.add('flex')
+// li.classList.add('justify-between')
 
