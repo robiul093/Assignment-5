@@ -4,17 +4,15 @@
 
 let i = 1;
 
-// phone number input
-const phone = document.getElementById('phone');
-const phoneValue = phone.value;
-console.log(phoneValue);
-
 function nextSection() {
+    // hide main section
     const mainSection = document.getElementById('main');
     mainSection.classList.add('hidden')
 
+    // show success section
     const success = document.getElementById('success');
     success.classList.remove('hidden');
+
 }
 
 const allSeats = document.getElementsByClassName('seat');
@@ -48,54 +46,70 @@ const p3 = document.createElement('p');
 // console.log(seatSelectId)
 for (const seat of allSeats) {
     seat.addEventListener('click', function (e) {
-       if(i <= 4){
-        e.target.classList.add('text-[#1DD100]');
-        // e.target.classList.add('text-[#1DD100]');
-        seatLeft -= 1;
-        setLeftId.innerText = seatLeft
-        seatSelected += 1;
-        seatSelectId.innerText = seatSelected
+        if (i <= 4) {
+            seat.classList.add('bg-[#1DD100]');
+            // e.target.classList.add('text-[#1DD100]');
+            seatLeft -= 1;
+            setLeftId.innerText = seatLeft
+            seatSelected += 1;
+            seatSelectId.innerText = seatSelected
 
-        const targetSeat = e.target.innerText;
+            const targetSeat = e.target.innerText;
 
-        // append p1 p2 p3 
-        p1.innerText = targetSeat;
+            // append p1 p2 p3 
+            p1.innerText = targetSeat;
 
 
-        const appendContainer = document.getElementById('append-container');
-        appendContainer.appendChild(li)
-        
-        // total price calculate and set
-        totalPriceNumber += 550;
-        totalPriceId.innerText = totalPriceNumber;
+            const appendContainer = document.getElementById('append-container');
+            appendContainer.appendChild(li)
 
-        // grandtotal price calculate and set
-        grandTotalPriceNumber += 550;
-        grandTotalPriceId.innerText = grandTotalPriceNumber;
+            // total price calculate and set
+            totalPriceNumber += 550;
+            totalPriceId.innerText = totalPriceNumber;
 
-        // enable button
-        const nextBtn = document.getElementById('next-btn');
-        nextBtn.classList.remove('btn-disabled');
-        
-        console.log(phoneValue)
-        i++;
-       }
-       else{
-        alert('4 seat selected!!!')
-       }
+            // grandtotal price calculate and set
+            grandTotalPriceNumber += 550;
+            grandTotalPriceId.innerText = grandTotalPriceNumber;
+
+
+            // phone number input
+            const number = document.getElementById('phone').value;
+            if (seat && number.length > 0){
+                
+            // enable button
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.classList.remove('btn-disabled');
+            }
+
+            i++;
+        }
+        else {
+            alert('4 seat selected!!!')
+        }
+        return seat;
     })
 }
 
 // add coupon
-const couponInput = document.getElementById("coupon-input");
-const couponValue = couponInput.value;
+
 const couponBtn = document.getElementById('coupon-btn');
-couponBtn.addEventListener('click', function(){
-    console.log(couponInput)
-    if(couponInput === 'NEW15' || couponInput === 'Couple 20'){
+couponBtn.addEventListener('click', function () {
+    const couponInput = document.getElementById("coupon-input");
+    const couponValue = couponInput.value;
+    if (couponValue === 'NEW15' || couponValue === 'Couple 20') {
+        if (couponValue === 'NEW15') {
+            let discount = 0;
+            discount = grandTotalPriceNumber * 0.15;
+            grandTotalPriceId.innerText = grandTotalPriceNumber - discount;
+
+        }
+        if (couponValue === 'Couple 20') {
+            let discount = 0;
+            discount = grandTotalPriceNumber * 0.20;
+            grandTotalPriceId.innerText = grandTotalPriceNumber - discount;
+        }
     }
 })
-console.log(couponValue )
 
 p2.innerText = 'Economoy';
 p3.innerText = 550;
