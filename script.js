@@ -93,12 +93,12 @@ for (let index = 0; index < allSeats.length; index++) {
 
             // phone number input
             const number = document.getElementById('phone').value;
-            if (number.length > 0) {
+            // if (number.length > 0) {
 
                 // enable button
                 const nextBtn = document.getElementById('next-btn');
                 nextBtn.classList.remove('btn-disabled');
-            }
+            // }
 
             i++;
         }
